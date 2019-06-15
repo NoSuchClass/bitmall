@@ -1,6 +1,7 @@
 package com.bitmall.dataobject;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class CategoryDO {
     private Integer id;
@@ -87,20 +88,20 @@ public class CategoryDO {
         this.updateTime = updateTime;
     }
 
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CategoryDO category = (CategoryDO) o;
-
-        return !(id != null ? !id.equals(category.id) : category.id != null);
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CategoryDO that = (CategoryDO) o;
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return Objects.hash(id);
     }
 }
