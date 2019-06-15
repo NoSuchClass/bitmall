@@ -23,17 +23,14 @@ public class UserDO {
 
     private Date updateTime;
 
-    public UserDO(Integer id, String username, String password, String email, String phone, String question, String answer, Integer role, Date createTime, Date updateTime) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phone = phone;
-        this.question = question;
-        this.answer = answer;
-        this.role = role;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
+    private UserDO(UserDOBuilder userDOBuilder) {
+        this.id = userDOBuilder.id;
+        this.username = userDOBuilder.username;
+        this.password = userDOBuilder.password;
+        this.email = userDOBuilder.email;
+        this.phone = userDOBuilder.phone;
+        this.question = userDOBuilder.question;
+        this.answer = userDOBuilder.answer;
     }
 
     public UserDO() {
@@ -117,6 +114,96 @@ public class UserDO {
     }
 
     public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                ", role=" + role +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
+
+    public static class UserDOBuilder {
+        private Integer id;
+
+        private String username;
+
+        private String password;
+
+        private String email;
+
+        private String phone;
+
+        private String question;
+
+        private String answer;
+
+        private Integer role;
+
+        private Date createTime;
+
+        private Date updateTime;
+
+        public UserDOBuilder buildId(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserDOBuilder buildUserName(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public UserDOBuilder buildPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserDOBuilder buildEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UserDOBuilder buildPhone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+
+        public UserDOBuilder buildQuestion(String question) {
+            this.question = question;
+            return this;
+        }
+
+        public UserDOBuilder buildAnwser(String answer) {
+            this.answer = answer;
+            return this;
+        }
+
+        public UserDO build() {
+            return new UserDO(this);
+        }
+    }
+
+    public UserDO(Integer id, String username, String password, String email, String phone, String question, String answer, Integer role, Date createTime, Date updateTime) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.question = question;
+        this.answer = answer;
+        this.role = role;
+        this.createTime = createTime;
         this.updateTime = updateTime;
     }
 }
