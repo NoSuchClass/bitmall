@@ -11,8 +11,7 @@
     </appender>
 
     <appender name="bitmall" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--<File>d:/mmalllog/mmall.log</File>-->
-        <File>/developer/apache-tomcat-7.0.73/logs/bitmall.log</File>
+        <File>C:/apache-tomcat-8.5.32/logs/bitmall.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>/developer/apache-tomcat-7.0.73/logs/bitmall.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <append>true</append>
