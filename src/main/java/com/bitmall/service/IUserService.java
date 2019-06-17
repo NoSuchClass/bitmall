@@ -1,9 +1,7 @@
 package com.bitmall.service;
 
-import com.bitmall.common.ServiceResponse;
+import com.bitmall.common.ServerResponse;
 import com.bitmall.dataobject.UserDO;
-
-import javax.servlet.http.HttpSession;
 
 /**
  * @author liuyuehe
@@ -17,7 +15,7 @@ public interface IUserService {
      * @param password
      * @return
      */
-    ServiceResponse<UserDO> login(String username, String password);
+    ServerResponse<UserDO> login(String username, String password);
 
     /**
      * 注册接口
@@ -25,7 +23,7 @@ public interface IUserService {
      * @param userDO
      * @return
      */
-    ServiceResponse<String> register(UserDO userDO);
+    ServerResponse<String> register(UserDO userDO);
 
     /**
      * 参数校验
@@ -34,7 +32,7 @@ public interface IUserService {
      * @param type 参数类型
      * @return
      */
-    ServiceResponse<String> checkValid(String val, String type);
+    ServerResponse<String> checkValid(String val, String type);
 
     /**
      * 通过用户名查询密保问题
@@ -42,7 +40,7 @@ public interface IUserService {
      * @param username
      * @return
      */
-    ServiceResponse<String> selectQuestion(String username);
+    ServerResponse<String> selectQuestion(String username);
 
     /**
      * 检查密码是否正确
@@ -51,7 +49,7 @@ public interface IUserService {
      * @param anwser
      * @return
      */
-    ServiceResponse<String> checkAnswer(String username, String question, String anwser);
+    ServerResponse<String> checkAnswer(String username, String question, String anwser);
 
     /**
      * 用户忘记密码找回
@@ -60,7 +58,7 @@ public interface IUserService {
      * @param forgetToken
      * @return
      */
-    ServiceResponse<String> forgetResetPassword(String username, String passwordNew, String forgetToken);
+    ServerResponse<String> forgetResetPassword(String username, String passwordNew, String forgetToken);
 
     /**
      * 用户登录状态进行修改密码
@@ -69,16 +67,16 @@ public interface IUserService {
      * @param passwordNew
      * @return
      */
-    ServiceResponse<String> resetPassword(String passwordOld, UserDO userDO, String passwordNew);
+    ServerResponse<String> resetPassword(String passwordOld, UserDO userDO, String passwordNew);
 
     /**
      * 更新用户信息
      * @param userDO
      * @return
      */
-    ServiceResponse<UserDO> updateUserInformation(UserDO userDO);
+    ServerResponse<UserDO> updateUserInformation(UserDO userDO);
 
-    ServiceResponse<UserDO> getUserInformation(Integer id);
+    ServerResponse<UserDO> getUserInformation(Integer id);
 
-    ServiceResponse checkAdminRole(UserDO user);
+    ServerResponse checkAdminRole(UserDO user);
 }

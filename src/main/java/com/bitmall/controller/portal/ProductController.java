@@ -1,6 +1,6 @@
 package com.bitmall.controller.portal;
 
-import com.bitmall.common.ServiceResponse;
+import com.bitmall.common.ServerResponse;
 import com.bitmall.service.IProductService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +20,16 @@ public class ProductController {
     IProductService iProductService;
 
     @RequestMapping(value = "detail", method = RequestMethod.GET)
-    public ServiceResponse getDetail(Integer productId) {
-        return iProductService.getDetail(productId);
+    public ServerResponse getDetail(Integer productId) {
+        return iProductService.getProductDetail(productId);
     }
 
-    public ServiceResponse<PageInfo> list(@RequestParam(value = "keyword", required = false) String keyword,
-                                          @RequestParam(value = "category", required = false) Integer category,
-                                          @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-                                          @RequestParam(value = "pageNum", defaultValue = "10")  int pageSize) {
-
+    @RequestMapping(value = "list", method = RequestMethod.POST)
+    public ServerResponse<PageInfo> list(@RequestParam(value = "keyword", required = false) String keyword,
+                                         @RequestParam(value = "categoryId", required = false) Integer categoryId,
+                                         @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+                                         @RequestParam(value = "pageNum", defaultValue = "10")  int pageSize,
+                                         @RequestParam(value = "orderBy", defaultValue = "")  String orderBy) {
+        return iProductService.getProductByKeywordCategory(keyword, categoryId, pageNum, pageSize, orderBy);
     }
 }

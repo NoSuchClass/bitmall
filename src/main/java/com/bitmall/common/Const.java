@@ -1,5 +1,9 @@
 package com.bitmall.common;
 
+import com.google.common.collect.Sets;
+
+import java.util.Set;
+
 /**
  * @author liuyuehe
  * @date 2019/6/9 13:32
@@ -15,11 +19,21 @@ public class Const {
     public static final String BUCKETNAME = "bitongyun";
     public static final String FILEHOST = "bitongyun";
 
+    public static interface ProductListOrderBy {
+        // 使用set可以提高查询效率，时间复杂度O（1）
+        Set<String> PRICE_ASC_DESC = Sets.newHashSet("price_desc", "price_asc");
+    }
     public static interface Role {
         int ROLE_CUSTOMER = 0;
         int ROLE_ADMIN = 1;
     }
+    public interface Cart{
+        int CHECKED = 1;//即购物车选中状态
+        int UN_CHECKED = 0;//购物车中未选中状态
 
+        String LIMIT_NUM_FAIL = "LIMIT_NUM_FAIL";
+        String LIMIT_NUM_SUCCESS = "LIMIT_NUM_SUCCESS";
+    }
     public enum ProductStatusEnum {
         /**
          * 销售状态时的码

@@ -2,7 +2,7 @@ package com.bitmall.controller.portal;
 
 import com.bitmall.common.Const;
 import com.bitmall.common.ResponseCode;
-import com.bitmall.common.ServiceResponse;
+import com.bitmall.common.ServerResponse;
 import com.bitmall.dataobject.UserDO;
 import com.bitmall.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,8 @@ public class UserController {
     IUserService iUserService;
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ServiceResponse<UserDO> login(String username, String password, HttpSession session) {
-        ServiceResponse<UserDO> response = iUserService.login(username, password);
+    public ServerResponse<UserDO> login(String username, String password, HttpSession session) {
+        ServerResponse<UserDO> response = iUserService.login(username, password);
         if (response.isSuccess()) {
             session.setAttribute(Const.CURRENT_USER, response.getData());
         }
@@ -35,64 +35,64 @@ public class UserController {
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
-    public ServiceResponse logout(HttpSession session) {
+    public ServerResponse logout(HttpSession session) {
         session.removeAttribute(Const.CURRENT_USER);
-        return ServiceResponse.createBySuccess();
+        return ServerResponse.createBySuccess();
     }
 
     @RequestMapping(value = "regist", method = RequestMethod.POST)
-    public ServiceResponse register(UserDO userDO) {
+    public ServerResponse register(UserDO userDO) {
         return iUserService.register(userDO);
     }
 
     @RequestMapping(value = "check_valid", method = RequestMethod.POST)
-    public ServiceResponse checkValid(String val, String type) {
+    public ServerResponse checkValid(String val, String type) {
         return iUserService.checkValid(val, type);
     }
 
     @RequestMapping(value = "get_user_info", method = RequestMethod.GET)
-    public ServiceResponse getUserInfo(HttpSession session) {
+    public ServerResponse getUserInfo(HttpSession session) {
         UserDO userDO = (UserDO) session.getAttribute(Const.CURRENT_USER);
         if (userDO != null) {
-            return ServiceResponse.createBySuccess(userDO);
+            return ServerResponse.createBySuccess(userDO);
         }
-        return ServiceResponse.createByErrorByMessage("用户未登录，无法获取用户信息");
+        return ServerResponse.createByErrorMessage("用户未登录，无法获取用户信息");
     }
 
     @RequestMapping(value = "forget_get_question", method = RequestMethod.POST)
-    public ServiceResponse<String> forgetGetQuestion(String username) {
+    public ServerResponse<String> forgetGetQuestion(String username) {
         return iUserService.selectQuestion(username);
     }
 
     @RequestMapping(value = "forget_check_answer", method = RequestMethod.POST)
-    public ServiceResponse<String> forgetCheckAnswer(String username, String question, String answer) {
+    public ServerResponse<String> forgetCheckAnswer(String username, String question, String answer) {
         return iUserService.checkAnswer(username, question, answer);
     }
 
     @RequestMapping(value = "forget_reset_password", method = RequestMethod.POST)
-    public ServiceResponse<String> forgetResetPassword(String username, String passwordNew, String token) {
+    public ServerResponse<String> forgetResetPassword(String username, String passwordNew, String token) {
         return iUserService.forgetResetPassword(username, passwordNew, token);
     }
 
     @RequestMapping(value = "reset_password", method = RequestMethod.POST)
-    public ServiceResponse<String> resetPassword(String passwordOld, String passwordNew, HttpSession session) {
+    public ServerResponse<String> resetPassword(String passwordOld, String passwordNew, HttpSession session) {
         UserDO userDO = (UserDO) session.getAttribute(Const.CURRENT_USER);
         if (userDO == null) {
-            return ServiceResponse.createByErrorByMessage("用户未登录");
+            return ServerResponse.createByErrorMessage("用户未登录");
         }
         return iUserService.resetPassword(passwordOld, userDO, passwordNew);
     }
 
     @RequestMapping(value = "update_information", method = RequestMethod.POST)
-    public ServiceResponse<UserDO> updateUserInformation(HttpSession session, UserDO userDO) {
+    public ServerResponse<UserDO> updateUserInformation(HttpSession session, UserDO userDO) {
         UserDO currentUserDO = (UserDO) session.getAttribute(Const.CURRENT_USER);
         if (currentUserDO == null) {
-            return ServiceResponse.createByErrorByMessage("用户未登录");
+            return ServerResponse.createByErrorMessage("用户未登录");
         }
         // 这儿也是做了一个防止横向越权的操作
         userDO.setId(currentUserDO.getId());
         userDO.setUsername(currentUserDO.getUsername());
-        ServiceResponse<UserDO> response = iUserService.updateUserInformation(userDO);
+        ServerResponse<UserDO> response = iUserService.updateUserInformation(userDO);
         if (response.isSuccess()) {
             session.setAttribute(Const.CURRENT_USER, response.getData());
         }
@@ -100,10 +100,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "get_information", method = RequestMethod.GET)
-    public ServiceResponse<UserDO> getInformation(HttpSession session) {
+    public ServerResponse<UserDO> getInformation(HttpSession session) {
         UserDO currentUser = (UserDO) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
-            return ServiceResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，需要强制登录");
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "用户未登录，需要强制登录");
         }
         return iUserService.getUserInformation(currentUser.getId());
     }

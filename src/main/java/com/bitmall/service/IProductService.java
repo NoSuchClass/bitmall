@@ -1,14 +1,15 @@
 package com.bitmall.service;
 
-import com.bitmall.common.ServiceResponse;
+import com.bitmall.common.ServerResponse;
 import com.bitmall.dataobject.ProductDO;
 import com.github.pagehelper.PageInfo;
 
 public interface IProductService {
-    ServiceResponse saveOrUpdateProduct(ProductDO product);
-    ServiceResponse setSaleStatus(Integer productId, Integer status);
-    ServiceResponse manageProductDetail(Integer productId);
-    ServiceResponse<PageInfo> getList(int pageNum, int pageSize);
-    ServiceResponse productSearch(String productName, Integer productId, int pageNum, int pageSize);
-    ServiceResponse getDetail(Integer productId);
+    ServerResponse saveOrUpdateProduct(ProductDO product);
+    ServerResponse setSaleStatus(Integer productId, Integer status);
+    ServerResponse manageProductDetail(Integer productId);
+    ServerResponse<PageInfo> getList(int pageNum, int pageSize);
+    ServerResponse productSearch(String productName, Integer productId, int pageNum, int pageSize);
+    ServerResponse getProductDetail(Integer productId);
+    ServerResponse<PageInfo> getProductByKeywordCategory(String keyword, Integer categoryId, int pageNum, int pageSize, String orderBy);
 }
