@@ -6,6 +6,7 @@ import com.bitmall.dataobject.CategoryDO;
 import com.bitmall.service.ICategoryService;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +22,8 @@ import java.util.Set;
  * @date 2019/6/15 12:00
  */
 @Service(value = "iCategoryService")
+@Slf4j
 public class CategoryServiceImpl implements ICategoryService {
-
-    private static final Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
 
     @Autowired
     CategoryMapper categoryMapper;
@@ -64,7 +64,7 @@ public class CategoryServiceImpl implements ICategoryService {
     public ServerResponse<List<CategoryDO>> getChildrenByParentId(Integer categoryId) {
         List<CategoryDO> categoryList = categoryMapper.selectCategoryChildrenByParentId(categoryId);
         if (CollectionUtils.isEmpty(categoryList)) {
-            logger.info("未找到当前分类的子分类");
+            log.info("未找到当前分类的子分类");
         }
         return ServerResponse.createBySuccess(categoryList);
     }

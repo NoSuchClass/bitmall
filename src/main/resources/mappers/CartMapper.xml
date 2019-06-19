@@ -102,7 +102,7 @@
       </if>
       <if test="updateTime != null" >
         update_time = now(),
-      </if>
+    </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -138,8 +138,7 @@
   <select id="selectCartProductCheckedStatusByUserId" resultType="int" parameterType="int">
     SELECT  count(1) from mmall_cart where checked = 0 and user_id = #{userId}
   </select>
-  
-  
+
   <delete id="deleteByUserIdProductIds" parameterType="map">
     delete from mmall_cart
     where user_id = #{userId}

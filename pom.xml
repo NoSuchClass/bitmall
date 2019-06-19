@@ -47,8 +47,9 @@
     <dependency>
       <groupId>com.alipay.sdk</groupId>
       <artifactId>alipay-sdk-java</artifactId>
-      <version>3.7.89.ALL</version>
+      <version>3.0.0</version>
     </dependency>
+
 
     <dependency>
       <groupId>com.aliyun.oss</groupId>
@@ -60,6 +61,14 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-tx</artifactId>
       <version>${org.springframework.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.8</version>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
